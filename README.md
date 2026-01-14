@@ -3,8 +3,9 @@ BridgeLabz Training
 Welcome to my BridgeLabz Training repository.
 This README tracks my daily learning progress.
 (Day numbers are based on calendar dates. Revisiting branches later keeps the same day number.)
+<details>
+<summary>Core Java Practice</summary>
 
-Core Java Practice
 
 ## 16/12/25 (Tuesday) - Day 1
 - Orientation
@@ -47,7 +48,10 @@ Core Java Practice
 - [Methods Link](https://github.com/PD-001/BridgeLabz-Training/tree/core-java-practice/core-java-practice/gcr-codebase/methods)
 - [OOPs Class and Object Link](https://github.com/PD-001/BridgeLabz-Training/tree/oops-practice/oops-practice/gcr-codebase/class-and-object)
 
-OOPS Practice
+</details>
+
+<details>
+<summary>OOPS Practice</summary>
 
 ## 23/12/25 (Tuesday) - Day 7
 - Learned and solved Java OOPs Class and Object problems
@@ -79,7 +83,10 @@ OOPS Practice
 - Solved scenario based Java problem: Employee Wage Computation
 - [Link](https://github.com/PD-001/BridgeLabz-Training/tree/oops-practice/oops-practice/scenario-based/employeewagecomputationproblem)
 
-DSA Practice
+</details>
+
+<details>
+<summary>DSA Practice</summary>
 
 ## 29/12/25 (Monday) - Day 11
 - Solved and learned Java Linked List problems
@@ -106,7 +113,10 @@ DSA Practice
 - Solved scenario based Java problems
 - [Link](https://github.com/PD-001/BridgeLabz-Training/tree/dsa-practice/dsa-practice/scenario-based)
 
-Collection Practice
+</details>
+
+<details>
+<summary>Collection Practice</summary>
 
 ## 03/01/26 (Saturday) - Day 16
 - Solved and learned Java Generics problems
@@ -133,8 +143,13 @@ Collection Practice
 - Solved LeetCode problem: Merge Two Sorted Linked List
 - [Link](https://github.com/PD-001/BridgeLabz-Training/tree/collection-practice/collection-practice/gcr-codebase/regexandjunit)
 
-Review
+</details>
+
+<details>
+<summary>Review</summary>
 
 ## 05/01/26 (Sunday) - Day 17
 - Solution to problems given at the time of first review
 - [Link](https://github.com/PD-001/BridgeLabz-Training/tree/review/review/review1)
+
+</details>

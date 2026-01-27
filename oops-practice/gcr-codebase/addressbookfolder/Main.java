@@ -18,15 +18,12 @@ public class Main {
 			System.out.println("\nMenu:");
 			System.out.println("1. Add New Contact");
 			System.out.println("2. View All Contacts");
-			System.out.println("3. Exit");
+			System.out.println("3. Edit Details by Name");
+			System.out.println("4. Exit");
 			System.out.print("Enter your choice: ");
 
-			try {
-				choice= Integer.parseInt(sc.nextLine());
-			} catch (NumberFormatException e) {
-				System.out.println("Invalid input. Please enter a number.");
-				continue;
-			}
+			choice=sc.nextInt();
+			sc.nextLine();
 
 			switch (choice) {
 				case 1:
@@ -41,6 +38,11 @@ public class Main {
 					break;
 
 				case 3:
+					System.out.println("Please enter name of employee:");
+					addressBook.editByName(sc.nextLine(), sc);
+					break;
+					
+				case 4:
 					System.out.println("Exiting Address Book Program...");
 					break;
 
@@ -49,7 +51,7 @@ public class Main {
 					break;
 			}
 
-		} while (choice!=3);
+		} while (choice!=4);
 
 		sc.close();
 	}

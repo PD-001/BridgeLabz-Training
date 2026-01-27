@@ -19,7 +19,8 @@ public class Main {
 			System.out.println("1. Add New Contact");
 			System.out.println("2. View All Contacts");
 			System.out.println("3. Edit Details by Name");
-			System.out.println("4. Exit");
+			System.out.println("4. Delete By Name");
+			System.out.println("5. Exit");
 			System.out.print("Enter your choice: ");
 
 			choice=sc.nextInt();
@@ -43,15 +44,20 @@ public class Main {
 					break;
 					
 				case 4:
-					System.out.println("Exiting Address Book Program...");
+					System.out.println("Please enter name of employee:");
+					addressBook.deleteByName(sc.nextLine());
 					break;
 
+				case 5:
+					System.out.println("Exiting Address Book Program...");
+					break;
+					
 				default:
 					System.out.println("Invalid choice. Please try again.");
 					break;
 			}
 
-		} while (choice!=4);
+		} while (choice!=5);
 
 		sc.close();
 	}

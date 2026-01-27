@@ -118,6 +118,16 @@ public class AddressBook {
 		return -1;
 	}
 	
+	public void deleteByName(String name) {
+		int i;
+		if((i=existByName(name))!=-1) {
+			contacts.remove(i);
+			System.out.println("Contact deleted");
+		}else {
+			System.out.println("No such contact");
+		}
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb= new StringBuilder();

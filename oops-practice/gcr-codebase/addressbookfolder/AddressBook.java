@@ -23,6 +23,10 @@ public class AddressBook {
 		System.out.println(toString());
 	}
 	
+	public void addContact(Contact contact) {
+		this.contacts.add(contact);
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb= new StringBuilder();

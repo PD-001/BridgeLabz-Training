@@ -1,4 +1,4 @@
 package smartcitytransportandservicemanagementsystem;
 
-public class EmergencyService {
+public interface EmergencyService {
 }

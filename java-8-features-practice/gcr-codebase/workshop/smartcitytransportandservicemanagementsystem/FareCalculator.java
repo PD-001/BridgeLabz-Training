@@ -3,5 +3,5 @@ package smartcitytransportandservicemanagementsystem;
 @FunctionalInterface
 public interface FareCalculator {
 	
-	public void calculateFare(double distance);
+	public double calculateFare(TransportService service);
 }

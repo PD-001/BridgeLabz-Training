@@ -19,13 +19,13 @@ public class Program {
 		
 		for(CreatorStats record: records) {
 			int count=0;
-			for(int i=0;i<record.getWeeklyLikes().length;i++) {
-				if(record.getWeeklyLikes()[i]>= likeThreshold) {
+			for(int i=0;i<record.weeklyLikes.length;i++) {
+				if(record.weeklyLikes[i]>= likeThreshold) {
 					count++;
 				}
 			}
 			if(count>0) {
-				topPostCount.put(record.getCreatorName(), count);
+				topPostCount.put(record.creatorName, count);
 			}
 		}
 		
@@ -41,10 +41,10 @@ public class Program {
 		
 		for(CreatorStats record: CreatorStats.engagementBoard) {
 			int avg=0;
-			for(double week: record.getWeeklyLikes()) {
+			for(double week: record.weeklyLikes) {
 				avg+=week;
 			}
-			avg/=record.getWeeklyLikes().length;
+			avg/=record.weeklyLikes.length;
 			grandAvg+=avg;
 		}
 		

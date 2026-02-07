@@ -15,7 +15,9 @@ public class Main {
 		    System.out.println("\nMenu:");
 		    System.out.println("1. Add Address Book");
 		    System.out.println("2. Edit Address Book");
-		    System.out.println("3. Exit");
+		    System.out.println("3. Show all person in a City");
+		    System.out.println("4. Show all person in a State");
+		    System.out.println("5. Exit");
 
 		    c= sc.nextInt();
 		    sc.nextLine();
@@ -32,8 +34,19 @@ public class Main {
 		            break;
 
 		        case 3:
+		            System.out.println("Enter city name:");
+		            abdictionary.searchPersonByCity(sc.nextLine().trim());
+		            break;
+		            
+		        case 4:
+		        	System.out.println("Enter state name:");
+		            abdictionary.searchPersonByState(sc.nextLine().trim());
+		            break;
+		        
+		        case 5:
 		            System.out.println("Exiting...");
 		            break;
+
 		    }
 		} while (c != 3);
 

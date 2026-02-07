@@ -2,7 +2,10 @@ package addressbookfolder;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class AddressBookDictionary {
 	private HashMap<String, AddressBook> dictionary= null;
@@ -20,6 +23,44 @@ public class AddressBookDictionary {
 		System.out.println("New address book created");
 	}
 	
+	public void searchPersonByCity(String city) {
+		
+		Map<String, List<Contact>> hm= dictionary.entrySet().stream()
+				.collect(Collectors.toMap(
+						ab->ab.getKey(), 
+						ab->ab.getValue()
+						.getContacts().stream()
+						.filter(c->c.getCity().equalsIgnoreCase(city)).toList()
+						));
+		
+		hm.entrySet().stream()
+			.filter(ab->!ab.getValue().isEmpty())
+			.forEach(ab->{
+				System.out.println("Address book -"+ ab.getKey());
+				ab.getValue().forEach(System.out::println);
+			});
+		
+	}
+	
+	public void searchPersonByState(String state) {
+		
+		Map<String, List<Contact>> hm= dictionary.entrySet().stream()
+				.collect(Collectors.toMap(
+						ab->ab.getKey(), 
+						ab->ab.getValue()
+						.getContacts().stream()
+						.filter(c->c.getState().equalsIgnoreCase(state)).toList()
+						));
+		
+		hm.entrySet().stream()
+		.filter(ab->!ab.getValue().isEmpty())
+		.forEach(ab->{
+			System.out.println("Address book -"+ ab.getKey());
+			ab.getValue().forEach(System.out::println);
+		});
+		
+	}
+		
 	public void editAddressBook(String name, Scanner sc) {
 
 		if(dictionary.containsKey(name)) {

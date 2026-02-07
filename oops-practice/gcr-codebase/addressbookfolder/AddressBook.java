@@ -25,9 +25,13 @@ public class AddressBook {
 	}
 	
 	public void addContact(Contact contact) {
+		if(duplicateCheck(contact)) {
+			System.out.println("Contact already exists");
+			return;
+		}
 		this.contacts.add(contact);
 	}
-	
+
 	public void editByName(String name, Scanner sc) {
 		int i;
 		if((i=existByName(name))!=-1) {
@@ -106,11 +110,16 @@ public class AddressBook {
 		}
 	}
 	
-	public int existByName(String name) {
+	private int existByName(String name) {
 		String[] fullname= name.split(" ");
 		if(fullname.length<2) return -1;
-		for(int i=0;i<contacts.size();i++) {
-			if(contacts.get(i).getFirstName().equalsIgnoreCase(fullname[0]) && contacts.get(i).getLastName().equalsIgnoreCase(fullname[1])) {
+		
+		Contact temp= new Contact();
+		temp.setFirstName(fullname[0]);
+		temp.setFirstName(fullname[1]);
+		
+		for(int i=0;i<this.contacts.size();i++) {
+			if(contacts.get(i).equals(temp)) {
 				return i;
 			}
 		}
@@ -121,11 +130,16 @@ public class AddressBook {
 	public void deleteByName(String name) {
 		int i;
 		if((i=existByName(name))!=-1) {
-			contacts.remove(i);
+			this.contacts.remove(i);
 			System.out.println("Contact deleted");
 		}else {
 			System.out.println("No such contact");
 		}
+	}
+	
+
+	private boolean duplicateCheck(Contact contact) {
+		return contacts.contains(contact);
 	}
 	
 	@Override
@@ -136,4 +150,5 @@ public class AddressBook {
 		}
 		return sb.toString();
 	}
+
 }

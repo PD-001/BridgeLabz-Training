@@ -15,9 +15,11 @@ public class Main {
 		    System.out.println("\nMenu:");
 		    System.out.println("1. Add Address Book");
 		    System.out.println("2. Edit Address Book");
-		    System.out.println("3. Show all person in a City");
-		    System.out.println("4. Show all person in a State");
-		    System.out.println("5. Exit");
+		    System.out.println("3. Search Person by City (Across Address Books)");
+		    System.out.println("4. Search Person by State (Across Address Books)");
+		    System.out.println("5. View Persons Grouped By City");
+		    System.out.println("6. View Persons Grouped By State");
+		    System.out.println("7. Exit");
 
 		    c= sc.nextInt();
 		    sc.nextLine();
@@ -35,22 +37,31 @@ public class Main {
 
 		        case 3:
 		            System.out.println("Enter city name:");
-		            abdictionary.searchPersonByCity(sc.nextLine().trim());
+		            abdictionary.showPersonOfCity(sc.nextLine().trim());
 		            break;
 		            
 		        case 4:
 		        	System.out.println("Enter state name:");
-		            abdictionary.searchPersonByState(sc.nextLine().trim());
+		            abdictionary.showPersonOfState(sc.nextLine().trim());
 		            break;
-		        
+
 		        case 5:
+		        	abdictionary.showPersonByCity();
+		        	break;
+
+		        case 6:
+		        	abdictionary.showPersonByState();
+		        	break;
+		        
+		        case 7:
 		            System.out.println("Exiting...");
 		            break;
 
+		        default:
+		        	System.out.println("Invalid choice. Please try again.");
+		        	break;
 		    }
-		} while (c != 3);
-
-		
+		} while (c != 7);
 
 		sc.close();
 	}

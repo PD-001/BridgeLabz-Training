@@ -9,9 +9,13 @@ import java.util.stream.Collectors;
 
 public class AddressBookDictionary {
 	private HashMap<String, AddressBook> dictionary= null;
+	private HashMap<String, List<Contact>> allPeopleInCity= null;
+	private HashMap<String, List<Contact>> allPeopleInState= null;
 	
 	public AddressBookDictionary() {
 		dictionary= new HashMap<String, AddressBook>();
+		allPeopleInCity= new HashMap<>();
+		allPeopleInState= new HashMap<>();
 	}
 	
 	public void addAddressBook(String name) {
@@ -23,7 +27,7 @@ public class AddressBookDictionary {
 		System.out.println("New address book created");
 	}
 	
-	public void searchPersonByCity(String city) {
+	public void showPersonOfCity(String city) {
 		
 		Map<String, List<Contact>> hm= dictionary.entrySet().stream()
 				.collect(Collectors.toMap(
@@ -36,13 +40,13 @@ public class AddressBookDictionary {
 		hm.entrySet().stream()
 			.filter(ab->!ab.getValue().isEmpty())
 			.forEach(ab->{
-				System.out.println("Address book -"+ ab.getKey());
+				System.out.println("City -"+ ab.getKey());
 				ab.getValue().forEach(System.out::println);
 			});
 		
 	}
 	
-	public void searchPersonByState(String state) {
+	public void showPersonOfState(String state) {
 		
 		Map<String, List<Contact>> hm= dictionary.entrySet().stream()
 				.collect(Collectors.toMap(
@@ -55,7 +59,25 @@ public class AddressBookDictionary {
 		hm.entrySet().stream()
 		.filter(ab->!ab.getValue().isEmpty())
 		.forEach(ab->{
-			System.out.println("Address book -"+ ab.getKey());
+			System.out.println("State -"+ ab.getKey());
+			ab.getValue().forEach(System.out::println);
+		});
+		
+	}
+	
+	public void showPersonByCity() {
+		allPeopleInCity.entrySet().stream()
+			.forEach(ab->{
+				System.out.println("City -"+ ab.getKey());
+				ab.getValue().forEach(System.out::println);
+			});
+		
+	}
+	
+	public void showPersonByState() {
+		allPeopleInState.entrySet().stream()
+		.forEach(ab->{
+			System.out.println("State -"+ ab.getKey());
 			ab.getValue().forEach(System.out::println);
 		});
 		
@@ -82,6 +104,8 @@ public class AddressBookDictionary {
 				switch (choice) {
 					case 1:
 						Contact contact= newContact(sc);
+						allPeopleInCity.computeIfAbsent(contact.getCity(), l->new LinkedList<Contact>()).add(contact);
+						allPeopleInState.computeIfAbsent(contact.getState(), l->new LinkedList<Contact>()).add(contact);
 						addressBook.addContact(contact);
 						System.out.println("Contact added successfully.");
 						break;

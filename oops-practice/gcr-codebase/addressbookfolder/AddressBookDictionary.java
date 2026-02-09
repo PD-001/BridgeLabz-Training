@@ -105,6 +105,14 @@ public class AddressBookDictionary {
 		});
 		
 	}
+	
+	public void printSortedAllAddressBooksByName() {
+	    dictionary.entrySet().stream()
+	        .forEach(entry->{
+	            System.out.println("\nAddress Book: "+ entry.getKey() +"-");
+	            entry.getValue().sortAndPrintContacts();
+	        });
+	}
 		
 	public void editAddressBook(String name, Scanner sc) {
 

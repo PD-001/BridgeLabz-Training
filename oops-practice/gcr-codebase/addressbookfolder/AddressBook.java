@@ -159,6 +159,15 @@ public class AddressBook {
 		}
 	}
 	
+	public void sortAndPrintContacts() {
+	    contacts.stream()
+	            .sorted((c1, c2)->{
+	                int res=c1.getFirstName().compareToIgnoreCase(c2.getFirstName());
+	                if (res!=0) return res;
+	                return c1.getLastName().compareToIgnoreCase(c2.getLastName());
+	            })
+	            .forEach(System.out::println);
+	}
 
 	private boolean duplicateCheck(Contact contact) {
 		return contacts.contains(contact);

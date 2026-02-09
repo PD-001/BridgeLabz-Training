@@ -21,7 +21,8 @@ public class Main {
 		    System.out.println("6. View Persons Grouped By State");
 		    System.out.println("7. Count Persons by City");
 		    System.out.println("8. Count Persons by State");
-		    System.out.println("9. Exit");
+		    System.out.println("9. View All Contacts Sorted by Name");
+		    System.out.println("10. Exit");
 
 		    c= sc.nextInt();
 		    sc.nextLine();
@@ -66,6 +67,10 @@ public class Main {
 		        	break;
 		        
 		        case 9:
+		            abdictionary.printSortedAllAddressBooksByName();
+		            break;
+
+		        case 10:
 		            System.out.println("Exiting...");
 		            break;
 
@@ -73,7 +78,7 @@ public class Main {
 		        	System.out.println("Invalid choice. Please try again.");
 		        	break;
 		    }
-		} while (c != 9);
+		} while (c != 10);
 
 		sc.close();
 	}

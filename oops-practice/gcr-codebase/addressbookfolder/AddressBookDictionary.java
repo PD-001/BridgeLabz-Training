@@ -46,6 +46,29 @@ public class AddressBookDictionary {
 		
 	}
 	
+	public void numberOfContactPersoninCity(String city) {
+
+	    List<Contact> list= allPeopleInCity.get(city);
+
+	    if (list!=null) {
+	        System.out.println(city +" - "+ list.size());
+	    } else {
+	        System.out.println("No contacts found in "+ city);
+	    }
+	}
+
+
+	public void numberOfContactPersoninState(String state) {
+
+	    List<Contact> list= allPeopleInState.get(state);
+
+	    if (list!=null) {
+	        System.out.println(state +" - "+ list.size());
+	    } else {
+	        System.out.println("No contacts found in "+ state);
+	    }
+	}
+	
 	public void showPersonOfState(String state) {
 		
 		Map<String, List<Contact>> hm= dictionary.entrySet().stream()
@@ -117,12 +140,24 @@ public class AddressBookDictionary {
 
 					case 3:
 						System.out.println("Please enter full name of employee:");
-						addressBook.editByName(sc.nextLine(), sc);
+						String nameToEdit= sc.nextLine();
+						addressBook.editByName(nameToEdit, sc, allPeopleInCity, allPeopleInState);
 						break;
 						
 					case 4:
 						System.out.println("Please enter full name of employee:");
-						addressBook.deleteByName(sc.nextLine());
+						String nameToDelete= sc.nextLine();
+						Contact deletedContact= addressBook.deleteByName(nameToDelete);
+						
+						if (deletedContact!=null) {
+					        if (allPeopleInCity.containsKey(deletedContact.getCity())) {
+					            allPeopleInCity.get(deletedContact.getCity()).remove(deletedContact);
+					        }
+					        if (allPeopleInState.containsKey(deletedContact.getState())) {
+					            allPeopleInState.get(deletedContact.getState()).remove(deletedContact);
+					        }
+					    }
+						
 						break;
 
 					case 5:

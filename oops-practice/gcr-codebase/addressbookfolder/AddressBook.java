@@ -2,6 +2,7 @@ package addressbookfolder;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBook {
@@ -32,9 +33,10 @@ public class AddressBook {
 		this.contacts.add(contact);
 	}
 
-	public void editByName(String name, Scanner sc) {
+	public void editByName(String name, Scanner sc, Map<String, List<Contact>> cityMap, Map<String, List<Contact>> stateMap) {
 		int i;
 		if((i=existByName(name))!=-1) {
+			Contact c = contacts.get(i);
 			int n=0;
 			do {
 
@@ -55,42 +57,60 @@ public class AddressBook {
 				switch(n) {
 				case 1:
 					System.out.println("New first Name:");
-					contacts.get(i).setFirstName(sc.nextLine());
+					c.setFirstName(sc.nextLine());
 					break;
 					
 				case 2:
 					System.out.println("New Last Name:");
-					contacts.get(i).setLastName(sc.nextLine());
+					c.setLastName(sc.nextLine());
 					break;
 					
 				case 3:
 					System.out.println("New Address:");
-					contacts.get(i).setAddress(sc.nextLine());
+					c.setAddress(sc.nextLine());
 					break;
 					
 				case 4:
 					System.out.println("New City name:");
-					contacts.get(i).setCity(sc.nextLine());
+					String oldCity= c.getCity();
+                    String newCity= sc.nextLine();
+                    
+                    if (cityMap.containsKey(oldCity)) {
+                        cityMap.get(oldCity).remove(c);
+                    }
+                    
+                    c.setCity(newCity);
+                    
+                    cityMap.computeIfAbsent(newCity, k -> new LinkedList<>()).add(c);
 					break;
 					
 				case 5:
 					System.out.println("New State name");
-					contacts.get(i).setState(sc.nextLine());
+					String oldState= c.getState();
+                    String newState= sc.nextLine();
+                    
+                    if (stateMap.containsKey(oldState)) {
+                        stateMap.get(oldState).remove(c);
+                    }
+                    
+                    c.setState(newState);
+                    
+                    stateMap.computeIfAbsent(newState, k -> new LinkedList<>()).add(c);
 					break;
 				
 				case 6:
 					System.out.println("New Zip:");
-					contacts.get(i).setZip(sc.nextLine());
+					c.setZip(sc.nextLine());
 					break;
 					
 				case 7:
 					System.out.println("New phone Number:");
-					contacts.get(i).setPhoneNumber(sc.nextLine());
+					c.setPhoneNumber(sc.nextLine());
 					break;
 					
 				case 8:
 					System.out.println("New Email:");
-					contacts.get(i).setEmail(sc.nextLine());
+					c.setEmail(sc.nextLine());
 					break;
 					
 				case 9:
@@ -116,7 +136,7 @@ public class AddressBook {
 		
 		Contact temp= new Contact();
 		temp.setFirstName(fullname[0]);
-		temp.setFirstName(fullname[1]);
+		temp.setLastName(fullname[1]);
 		
 		for(int i=0;i<this.contacts.size();i++) {
 			if(contacts.get(i).equals(temp)) {
@@ -127,13 +147,15 @@ public class AddressBook {
 		return -1;
 	}
 	
-	public void deleteByName(String name) {
+	public Contact deleteByName(String name) {
 		int i;
 		if((i=existByName(name))!=-1) {
-			this.contacts.remove(i);
+			Contact c= this.contacts.remove(i);	
 			System.out.println("Contact deleted");
+			return c;
 		}else {
 			System.out.println("No such contact");
+			return null;
 		}
 	}
 	
@@ -141,7 +163,7 @@ public class AddressBook {
 	private boolean duplicateCheck(Contact contact) {
 		return contacts.contains(contact);
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder sb= new StringBuilder();

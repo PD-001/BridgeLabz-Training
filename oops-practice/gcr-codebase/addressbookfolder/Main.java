@@ -19,7 +19,9 @@ public class Main {
 		    System.out.println("4. Search Person by State (Across Address Books)");
 		    System.out.println("5. View Persons Grouped By City");
 		    System.out.println("6. View Persons Grouped By State");
-		    System.out.println("7. Exit");
+		    System.out.println("7. Count Persons by City");
+		    System.out.println("8. Count Persons by State");
+		    System.out.println("9. Exit");
 
 		    c= sc.nextInt();
 		    sc.nextLine();
@@ -52,8 +54,18 @@ public class Main {
 		        case 6:
 		        	abdictionary.showPersonByState();
 		        	break;
-		        
+		        	
 		        case 7:
+		        	System.out.println("Enter city name:");
+		        	abdictionary.numberOfContactPersoninCity(sc.nextLine().trim());
+		        	break;
+		        	
+		        case 8:
+		        	System.out.println("Enter state name:");
+		        	abdictionary.numberOfContactPersoninState(sc.nextLine().trim());
+		        	break;
+		        
+		        case 9:
 		            System.out.println("Exiting...");
 		            break;
 
@@ -61,7 +73,7 @@ public class Main {
 		        	System.out.println("Invalid choice. Please try again.");
 		        	break;
 		    }
-		} while (c != 7);
+		} while (c != 9);
 
 		sc.close();
 	}

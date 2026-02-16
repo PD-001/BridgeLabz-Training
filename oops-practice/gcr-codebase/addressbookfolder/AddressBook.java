@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+
 public class AddressBook {
 	private List<Contact> contacts= null;
 	
@@ -289,6 +292,63 @@ public class AddressBook {
 			
 		} catch (IOException e) {
 			System.out.println("Error reading text file.");
+		}
+	}
+
+	public void writeToCSV(String fileName) {
+		try (CSVWriter writer= new CSVWriter(
+				new FileWriter(fileName))) {
+			
+			for (Contact c : contacts) {
+				String[] data= {
+					c.getFirstName(),
+					c.getLastName(),
+					c.getAddress(),
+					c.getCity(),
+					c.getState(),
+					c.getZip(),
+					c.getPhoneNumber(),
+					c.getEmail()
+				};
+				
+				writer.writeNext(data);
+			}
+			
+			System.out.println("Address Book written to CSV successfully.");
+			
+		} catch (Exception e) {
+			System.out.println("Error writing CSV file.");
+		}
+	}
+	
+	
+	public void readFromCSV(String fileName) {
+		try (CSVReader reader= new CSVReader(
+				new FileReader(fileName))) {
+			
+			String[] data;
+			
+			while ((data= reader.readNext()) != null) {
+				if (data.length == 8) {
+					Contact contact= new Contact(
+						data[0],
+						data[1],
+						data[2],
+						data[3],
+						data[4],
+						data[5],
+						data[6],
+						data[7]
+					);
+					
+					contacts.add(contact);
+				}
+			}
+			
+			System.out.println("Address Book loaded from CSV successfully.");
+			
+		} catch (Exception e) {
+			System.out.println("Error reading CSV file.");
 		}
 	}
 

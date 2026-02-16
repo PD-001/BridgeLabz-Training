@@ -27,7 +27,11 @@ public class Main {
 		    System.out.println("12. Sort Contacts by Zip (Within Address Book)");
 		    System.out.println("13. Write Address Book to Text File");
 		    System.out.println("14. Read Address Book from Text File");
-		    System.out.println("15. Exit");
+		    System.out.println("15. Write Address Book to CSV File");
+		    System.out.println("16. Read Address Book from CSV File");
+		    System.out.println("17. Write Address Book to JSON File");
+		    System.out.println("18. Read Address Book from JSON File");
+		    System.out.println("19. Exit");
 
 		    c= sc.nextInt();
 		    sc.nextLine();
@@ -132,6 +136,58 @@ public class Main {
 		        	break;
 		        	
 		        case 15:
+		        	System.out.println("Enter Address Book name:");
+		        	String csvWriteBook= sc.nextLine();
+		        	if (abdictionary.getDictionary().containsKey(csvWriteBook)) {
+		        		System.out.println("Enter file name (example: book.csv):");
+		        		String fileName= sc.nextLine();
+		        		abdictionary.getDictionary().get(csvWriteBook)
+		        				.writeToCSV(fileName);
+		        	} else {
+		        		System.out.println("No such address book");
+		        	}
+		        	break;
+		        	
+		        case 16:
+		        	System.out.println("Enter Address Book name:");
+		        	String csvReadBook= sc.nextLine();
+		        	if (abdictionary.getDictionary().containsKey(csvReadBook)) {
+		        		System.out.println("Enter file name (example: book.csv):");
+		        		String fileName= sc.nextLine();
+		        		abdictionary.getDictionary().get(csvReadBook)
+		        				.readFromCSV(fileName);
+		        	} else {
+		        		System.out.println("No such address book");
+		        	}
+		        	break;
+		        	
+		        case 17:
+		        	System.out.println("Enter Address Book name:");
+		        	String jsonWriteBook= sc.nextLine();
+		        	if (abdictionary.getDictionary().containsKey(jsonWriteBook)) {
+		        		System.out.println("Enter file name (example: book.json):");
+		        		String fileName= sc.nextLine();
+		        		abdictionary.getDictionary().get(jsonWriteBook)
+		        				.writeToJSON(fileName);
+		        	} else {
+		        		System.out.println("No such address book");
+		        	}
+		        	break;
+		        	
+		        case 18:
+		        	System.out.println("Enter Address Book name:");
+		        	String jsonReadBook= sc.nextLine();
+		        	if (abdictionary.getDictionary().containsKey(jsonReadBook)) {
+		        		System.out.println("Enter file name (example: book.json):");
+		        		String fileName= sc.nextLine();
+		        		abdictionary.getDictionary().get(jsonReadBook)
+		        				.readFromJSON(fileName);
+		        	} else {
+		        		System.out.println("No such address book");
+		        	}
+		        	break;
+		        	
+		        case 19:
 		            System.out.println("Exiting...");
 		            break;
 
@@ -139,7 +195,7 @@ public class Main {
 		        	System.out.println("Invalid choice. Please try again.");
 		        	break;
 		    }
-		} while (c != 14);
+		} while (c != 19);
 
 
 		sc.close();

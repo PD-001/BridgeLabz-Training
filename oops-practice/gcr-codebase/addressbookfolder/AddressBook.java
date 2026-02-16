@@ -5,12 +5,16 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
@@ -349,6 +353,45 @@ public class AddressBook {
 			
 		} catch (Exception e) {
 			System.out.println("Error reading CSV file.");
+		}
+	}
+
+	public void writeToJSON(String fileName) {
+		try (FileWriter writer= new FileWriter(fileName)) {
+			
+			Gson gson= new GsonBuilder()
+					.setPrettyPrinting()
+					.create();
+			
+			gson.toJson(contacts, writer);
+			
+			System.out.println("Address Book written to JSON successfully.");
+			
+		} catch (Exception e) {
+			System.out.println("Error writing JSON file.");
+		}
+	}
+	
+	
+	public void readFromJSON(String fileName) {
+		try (FileReader reader= new FileReader(fileName)) {
+			
+			Gson gson= new Gson();
+			
+			Type listType=
+					new TypeToken<
+						java.util.List<Contact>>() {}.getType();
+			
+			List<Contact> loadedContacts= gson.fromJson(reader, listType);
+			
+			if (loadedContacts != null) {
+				contacts.addAll(loadedContacts);
+			}
+			
+			System.out.println("Address Book loaded from JSON successfully.");
+			
+		} catch (Exception e) {
+			System.out.println("Error reading JSON file.");
 		}
 	}
 

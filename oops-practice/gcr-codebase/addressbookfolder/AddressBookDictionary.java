@@ -12,6 +12,10 @@ public class AddressBookDictionary {
 	private HashMap<String, List<Contact>> allPeopleInCity= null;
 	private HashMap<String, List<Contact>> allPeopleInState= null;
 	
+	public HashMap<String, AddressBook> getDictionary() {
+		return dictionary;
+	}
+	
 	public AddressBookDictionary() {
 		dictionary= new HashMap<String, AddressBook>();
 		allPeopleInCity= new HashMap<>();

@@ -22,7 +22,10 @@ public class Main {
 		    System.out.println("7. Count Persons by City");
 		    System.out.println("8. Count Persons by State");
 		    System.out.println("9. View All Contacts Sorted by Name");
-		    System.out.println("10. Exit");
+		    System.out.println("10. Sort Contacts by City (Within Address Book)");
+		    System.out.println("11. Sort Contacts by State (Within Address Book)");
+		    System.out.println("12. Sort Contacts by Zip (Within Address Book)");
+		    System.out.println("13. Exit");
 
 		    c= sc.nextInt();
 		    sc.nextLine();
@@ -71,6 +74,36 @@ public class Main {
 		            break;
 
 		        case 10:
+		        	System.out.println("Enter Address Book name:");
+		        	String citySortBook= sc.nextLine();
+		        	if (abdictionary.getDictionary().containsKey(citySortBook)) {
+		        		abdictionary.getDictionary().get(citySortBook).sortByCityAndPrint();
+		        	} else {
+		        		System.out.println("No such address book");
+		        	}
+		        	break;
+
+		        case 11:
+		        	System.out.println("Enter Address Book name:");
+		        	String stateSortBook= sc.nextLine();
+		        	if (abdictionary.getDictionary().containsKey(stateSortBook)) {
+		        		abdictionary.getDictionary().get(stateSortBook).sortByStateAndPrint();
+		        	} else {
+		        		System.out.println("No such address book");
+		        	}
+		        	break;
+
+		        case 12:
+		        	System.out.println("Enter Address Book name:");
+		        	String zipSortBook= sc.nextLine();
+		        	if (abdictionary.getDictionary().containsKey(zipSortBook)) {
+		        		abdictionary.getDictionary().get(zipSortBook).sortByZipAndPrint();
+		        	} else {
+		        		System.out.println("No such address book");
+		        	}
+		        	break;
+
+		        case 13:
 		            System.out.println("Exiting...");
 		            break;
 
@@ -78,7 +111,8 @@ public class Main {
 		        	System.out.println("Invalid choice. Please try again.");
 		        	break;
 		    }
-		} while (c != 10);
+		} while (c != 13);
+
 
 		sc.close();
 	}

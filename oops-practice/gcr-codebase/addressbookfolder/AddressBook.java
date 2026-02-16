@@ -1,5 +1,6 @@
 package addressbookfolder;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -173,6 +174,62 @@ public class AddressBook {
 		return contacts.contains(contact);
 	}
 
+	public void sortByCityAndPrint() {
+		sortAndPrint(Comparator.comparing(
+				Contact::getCity,
+				String.CASE_INSENSITIVE_ORDER
+			)
+			.thenComparing(
+				Contact::getFirstName,
+				String.CASE_INSENSITIVE_ORDER
+			)
+			.thenComparing(
+				Contact::getLastName,
+				String.CASE_INSENSITIVE_ORDER
+			)
+		);
+	}
+	
+	public void sortByStateAndPrint() {
+		sortAndPrint(Comparator.comparing(
+				Contact::getState,
+				String.CASE_INSENSITIVE_ORDER
+			)
+			.thenComparing(
+				Contact::getFirstName,
+				String.CASE_INSENSITIVE_ORDER
+			)
+			.thenComparing(
+				Contact::getLastName,
+				String.CASE_INSENSITIVE_ORDER
+			)
+		);
+	}
+	
+	public void sortByZipAndPrint() {
+		sortAndPrint(Comparator.comparing(
+				Contact::getZip,
+				String.CASE_INSENSITIVE_ORDER
+			)
+			.thenComparing(
+				Contact::getFirstName,
+				String.CASE_INSENSITIVE_ORDER
+			)
+			.thenComparing(
+				Contact::getLastName,
+				String.CASE_INSENSITIVE_ORDER
+			)
+		);
+	}
+	
+	private void sortAndPrint(Comparator<Contact> comparator) {
+		List<Contact> sortedList= new LinkedList<>(contacts);
+		
+		sortedList.sort(comparator);
+		
+		sortedList.forEach(System.out::println);
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb= new StringBuilder();

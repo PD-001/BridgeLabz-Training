@@ -25,7 +25,8 @@ public class Main {
 		    System.out.println("10. Sort Contacts by City (Within Address Book)");
 		    System.out.println("11. Sort Contacts by State (Within Address Book)");
 		    System.out.println("12. Sort Contacts by Zip (Within Address Book)");
-		    System.out.println("13. Exit");
+		    System.out.println("13. Write Address Book to Text File");
+		    System.out.println("14. Exit");
 
 		    c= sc.nextInt();
 		    sc.nextLine();
@@ -104,6 +105,19 @@ public class Main {
 		        	break;
 
 		        case 13:
+		        	System.out.println("Enter Address Book name:");
+		        	String textWriteBook= sc.nextLine();
+		        	if (abdictionary.getDictionary().containsKey(textWriteBook)) {
+		        		System.out.println("Enter file name (example: book.txt):");
+		        		String fileName= sc.nextLine();
+		        		abdictionary.getDictionary().get(textWriteBook)
+		        				.writeToTextFile(fileName);
+		        	} else {
+		        		System.out.println("No such address book");
+		        	}
+		        	break;
+		        	
+		        case 14:
 		            System.out.println("Exiting...");
 		            break;
 
@@ -111,7 +125,7 @@ public class Main {
 		        	System.out.println("Invalid choice. Please try again.");
 		        	break;
 		    }
-		} while (c != 13);
+		} while (c != 14);
 
 
 		sc.close();

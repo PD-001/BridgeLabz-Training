@@ -1,5 +1,10 @@
 package addressbookfolder;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -229,6 +234,64 @@ public class AddressBook {
 		
 		sortedList.forEach(System.out::println);
 	}
+	
+	public void writeToTextFile(String fileName) {
+		try (BufferedWriter bw= new BufferedWriter(
+				new FileWriter(fileName))) {
+			
+			for (Contact c : contacts) {
+				bw.write(
+					c.getFirstName() + "," +
+					c.getLastName() + "," +
+					c.getAddress() + "," +
+					c.getCity() + "," +
+					c.getState() + "," +
+					c.getZip() + "," +
+					c.getPhoneNumber() + "," +
+					c.getEmail()
+				);
+				bw.newLine();
+			}
+			
+			System.out.println("Address Book written to text file successfully.");
+			
+		} catch (IOException e) {
+			System.out.println("Error writing to text file.");
+		}
+	}
+	
+	public void readFromTextFile(String fileName) {
+		try (BufferedReader br= new BufferedReader(
+				new FileReader(fileName))) {
+			
+			String line;
+			
+			while ((line= br.readLine()) != null) {
+				String[] data= line.split(",");
+				
+				if (data.length == 8) {
+					Contact contact= new Contact(
+						data[0],
+						data[1],
+						data[2],
+						data[3],
+						data[4],
+						data[5],
+						data[6],
+						data[7]
+					);
+					
+					contacts.add(contact);
+				}
+			}
+			
+			System.out.println("Address Book loaded from text file successfully.");
+			
+		} catch (IOException e) {
+			System.out.println("Error reading text file.");
+		}
+	}
+
 	
 	@Override
 	public String toString() {

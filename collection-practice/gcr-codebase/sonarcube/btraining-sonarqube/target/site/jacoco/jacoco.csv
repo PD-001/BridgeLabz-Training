@@ -1,0 +1,5 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+BTraining SonarQube,addressbookfolder,AddressBook,231,106,24,8,61,29,24,10,7,7
+BTraining SonarQube,addressbookfolder,AddressBookDictionary,228,277,12,14,54,74,28,13,18,8
+BTraining SonarQube,addressbookfolder,Contact,54,109,4,6,15,37,11,15,7,14
+BTraining SonarQube,addressbookfolder,Main,133,0,13,0,49,0,13,0,2,0

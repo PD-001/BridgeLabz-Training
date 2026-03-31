@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AddressBookDictionary.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BTraining SonarQube</a> &gt; <a href="index.source.html" class="el_package">addressbookfolder</a> &gt; <span class="el_source">AddressBookDictionary.java</span></div><h1>AddressBookDictionary.java</h1><pre class="source lang-java linenums">package addressbookfolder;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class AddressBookDictionary {
+<span class="fc" id="L11">	private HashMap&lt;String, AddressBook&gt; dictionary= null;</span>
+<span class="fc" id="L12">	private HashMap&lt;String, List&lt;Contact&gt;&gt; allPeopleInCity= null;</span>
+<span class="fc" id="L13">	private HashMap&lt;String, List&lt;Contact&gt;&gt; allPeopleInState= null;</span>
+	
+<span class="fc" id="L15">	public AddressBookDictionary() {</span>
+<span class="fc" id="L16">		dictionary= new HashMap&lt;String, AddressBook&gt;();</span>
+<span class="fc" id="L17">		allPeopleInCity= new HashMap&lt;&gt;();</span>
+<span class="fc" id="L18">		allPeopleInState= new HashMap&lt;&gt;();</span>
+<span class="fc" id="L19">	}</span>
+	
+	public void addAddressBook(String name) {
+<span class="fc bfc" id="L22" title="All 2 branches covered.">		if(dictionary.containsKey(name)) {</span>
+<span class="fc" id="L23">			System.out.println(&quot;AddressBook already exists&quot;);</span>
+<span class="fc" id="L24">			return;</span>
+		}
+<span class="fc" id="L26">		dictionary.put(name, new AddressBook(new LinkedList&lt;&gt;()));</span>
+<span class="fc" id="L27">		System.out.println(&quot;New address book created&quot;);</span>
+<span class="fc" id="L28">	}</span>
+	
+	public void showPersonOfCity(String city) {
+		
+<span class="nc" id="L32">		Map&lt;String, List&lt;Contact&gt;&gt; hm= dictionary.entrySet().stream()</span>
+<span class="nc" id="L33">				.collect(Collectors.toMap(</span>
+<span class="nc" id="L34">						ab-&gt;ab.getKey(), </span>
+<span class="nc" id="L35">						ab-&gt;ab.getValue()</span>
+<span class="nc" id="L36">						.getContacts().stream()</span>
+<span class="nc" id="L37">						.filter(c-&gt;c.getCity().equalsIgnoreCase(city)).toList()</span>
+						));
+		
+<span class="nc" id="L40">		hm.entrySet().stream()</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">			.filter(ab-&gt;!ab.getValue().isEmpty())</span>
+<span class="nc" id="L42">			.forEach(ab-&gt;{</span>
+<span class="nc" id="L43">				System.out.println(&quot;City -&quot;+ ab.getKey());</span>
+<span class="nc" id="L44">				ab.getValue().forEach(System.out::println);</span>
+<span class="nc" id="L45">			});</span>
+		
+<span class="nc" id="L47">	}</span>
+	
+	public void numberOfContactPersoninCity(String city) {
+
+<span class="fc" id="L51">	    List&lt;Contact&gt; list= allPeopleInCity.get(city);</span>
+
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">	    if (list!=null) {</span>
+<span class="nc" id="L54">	        System.out.println(city +&quot; - &quot;+ list.size());</span>
+	    } else {
+<span class="fc" id="L56">	        System.out.println(&quot;No contacts found in &quot;+ city);</span>
+	    }
+<span class="fc" id="L58">	}</span>
+
+
+	public void numberOfContactPersoninState(String state) {
+
+<span class="fc" id="L63">	    List&lt;Contact&gt; list= allPeopleInState.get(state);</span>
+
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">	    if (list!=null) {</span>
+<span class="nc" id="L66">	        System.out.println(state +&quot; - &quot;+ list.size());</span>
+	    } else {
+<span class="fc" id="L68">	        System.out.println(&quot;No contacts found in &quot;+ state);</span>
+	    }
+<span class="fc" id="L70">	}</span>
+	
+	public void showPersonOfState(String state) {
+		
+<span class="nc" id="L74">		Map&lt;String, List&lt;Contact&gt;&gt; hm= dictionary.entrySet().stream()</span>
+<span class="nc" id="L75">				.collect(Collectors.toMap(</span>
+<span class="nc" id="L76">						ab-&gt;ab.getKey(), </span>
+<span class="nc" id="L77">						ab-&gt;ab.getValue()</span>
+<span class="nc" id="L78">						.getContacts().stream()</span>
+<span class="nc" id="L79">						.filter(c-&gt;c.getState().equalsIgnoreCase(state)).toList()</span>
+						));
+		
+<span class="nc" id="L82">		hm.entrySet().stream()</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">		.filter(ab-&gt;!ab.getValue().isEmpty())</span>
+<span class="nc" id="L84">		.forEach(ab-&gt;{</span>
+<span class="nc" id="L85">			System.out.println(&quot;State -&quot;+ ab.getKey());</span>
+<span class="nc" id="L86">			ab.getValue().forEach(System.out::println);</span>
+<span class="nc" id="L87">		});</span>
+		
+<span class="nc" id="L89">	}</span>
+	
+	public void showPersonByCity() {
+<span class="nc" id="L92">		allPeopleInCity.entrySet().stream()</span>
+<span class="nc" id="L93">			.forEach(ab-&gt;{</span>
+<span class="nc" id="L94">				System.out.println(&quot;City -&quot;+ ab.getKey());</span>
+<span class="nc" id="L95">				ab.getValue().forEach(System.out::println);</span>
+<span class="nc" id="L96">			});</span>
+		
+<span class="nc" id="L98">	}</span>
+	
+	public void showPersonByState() {
+<span class="nc" id="L101">		allPeopleInState.entrySet().stream()</span>
+<span class="nc" id="L102">		.forEach(ab-&gt;{</span>
+<span class="nc" id="L103">			System.out.println(&quot;State -&quot;+ ab.getKey());</span>
+<span class="nc" id="L104">			ab.getValue().forEach(System.out::println);</span>
+<span class="nc" id="L105">		});</span>
+		
+<span class="nc" id="L107">	}</span>
+	
+	public void printSortedAllAddressBooksByName() {
+<span class="nc" id="L110">	    dictionary.entrySet().stream()</span>
+<span class="nc" id="L111">	        .forEach(entry-&gt;{</span>
+<span class="nc" id="L112">	            System.out.println(&quot;\nAddress Book: &quot;+ entry.getKey() +&quot;-&quot;);</span>
+<span class="nc" id="L113">	            entry.getValue().sortAndPrintContacts();</span>
+<span class="nc" id="L114">	        });</span>
+<span class="nc" id="L115">	}</span>
+		
+	public void editAddressBook(String name, Scanner sc) {
+
+<span class="fc bfc" id="L119" title="All 2 branches covered.">		if(dictionary.containsKey(name)) {</span>
+<span class="fc" id="L120">			AddressBook addressBook= dictionary.get(name);</span>
+<span class="fc" id="L121">			int choice= 0;</span>
+
+			do {
+<span class="fc" id="L124">				System.out.println(&quot;\nMenu:&quot;);</span>
+<span class="fc" id="L125">				System.out.println(&quot;1. Add New Contact&quot;);</span>
+<span class="fc" id="L126">				System.out.println(&quot;2. View All Contacts&quot;);</span>
+<span class="fc" id="L127">				System.out.println(&quot;3. Edit Details by Name&quot;);</span>
+<span class="fc" id="L128">				System.out.println(&quot;4. Delete By Name&quot;);</span>
+<span class="fc" id="L129">				System.out.println(&quot;5. Exit&quot;);</span>
+<span class="fc" id="L130">				System.out.print(&quot;Enter your choice: &quot;);</span>
+
+<span class="fc" id="L132">				choice=sc.nextInt();</span>
+<span class="fc" id="L133">				sc.nextLine();</span>
+
+<span class="pc bpc" id="L135" title="3 of 6 branches missed.">				switch (choice) {</span>
+					case 1:
+<span class="fc" id="L137">						Contact contact= newContact(sc);</span>
+<span class="fc" id="L138">						allPeopleInCity.computeIfAbsent(contact.getCity(), l-&gt;new LinkedList&lt;Contact&gt;()).add(contact);</span>
+<span class="fc" id="L139">						allPeopleInState.computeIfAbsent(contact.getState(), l-&gt;new LinkedList&lt;Contact&gt;()).add(contact);</span>
+<span class="fc" id="L140">						addressBook.addContact(contact);</span>
+<span class="fc" id="L141">						System.out.println(&quot;Contact added successfully.&quot;);</span>
+<span class="fc" id="L142">						break;</span>
+
+					case 2:
+<span class="nc" id="L145">						System.out.println(&quot;Contacts in Address Book:&quot;);</span>
+<span class="nc" id="L146">						addressBook.printContacts();</span>
+<span class="nc" id="L147">						break;</span>
+
+					case 3:
+<span class="nc" id="L150">						System.out.println(&quot;Please enter full name of employee:&quot;);</span>
+<span class="nc" id="L151">						String nameToEdit= sc.nextLine();</span>
+<span class="nc" id="L152">						addressBook.editByName(nameToEdit, sc, allPeopleInCity, allPeopleInState);</span>
+<span class="nc" id="L153">						break;</span>
+						
+					case 4:
+<span class="fc" id="L156">						System.out.println(&quot;Please enter full name of employee:&quot;);</span>
+<span class="fc" id="L157">						String nameToDelete= sc.nextLine();</span>
+<span class="fc" id="L158">						Contact deletedContact= addressBook.deleteByName(nameToDelete);</span>
+						
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">						if (deletedContact!=null) {</span>
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">					        if (allPeopleInCity.containsKey(deletedContact.getCity())) {</span>
+<span class="fc" id="L162">					            allPeopleInCity.get(deletedContact.getCity()).remove(deletedContact);</span>
+					        }
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">					        if (allPeopleInState.containsKey(deletedContact.getState())) {</span>
+<span class="fc" id="L165">					            allPeopleInState.get(deletedContact.getState()).remove(deletedContact);</span>
+					        }
+					    }
+						
+						break;
+
+					case 5:
+<span class="fc" id="L172">						System.out.println(&quot;Exiting to Address Books&quot;);</span>
+<span class="fc" id="L173">						break;</span>
+						
+					default:
+<span class="nc" id="L176">						System.out.println(&quot;Invalid choice. Please try again.&quot;);</span>
+						break;
+				}
+
+<span class="fc bfc" id="L180" title="All 2 branches covered.">			} while (choice!=5);</span>
+
+<span class="fc" id="L182">		}</span>
+		else {
+<span class="fc" id="L184">			System.out.println(&quot;No such address book&quot;);</span>
+		}
+		
+<span class="fc" id="L187">	}</span>
+	
+	public static Contact newContact(Scanner sc) {
+<span class="fc" id="L190">		System.out.println(&quot;\nEnter Contact Details&quot;);</span>
+<span class="fc" id="L191">		System.out.print(&quot;First Name: &quot;);</span>
+<span class="fc" id="L192">		String firstName= sc.nextLine();</span>
+
+<span class="fc" id="L194">		System.out.print(&quot;Last Name: &quot;);</span>
+<span class="fc" id="L195">		String lastName= sc.nextLine();</span>
+
+<span class="fc" id="L197">		System.out.print(&quot;Address: &quot;);</span>
+<span class="fc" id="L198">		String address= sc.nextLine();</span>
+
+<span class="fc" id="L200">		System.out.print(&quot;City: &quot;);</span>
+<span class="fc" id="L201">		String city= sc.nextLine();</span>
+
+<span class="fc" id="L203">		System.out.print(&quot;State: &quot;);</span>
+<span class="fc" id="L204">		String state= sc.nextLine();</span>
+
+<span class="fc" id="L206">		System.out.print(&quot;Zip: &quot;);</span>
+<span class="fc" id="L207">		String zip= sc.nextLine();</span>
+
+<span class="fc" id="L209">		System.out.print(&quot;Phone Number: &quot;);</span>
+<span class="fc" id="L210">		String phoneNumber= sc.nextLine();</span>
+
+<span class="fc" id="L212">		System.out.print(&quot;Email: &quot;);</span>
+<span class="fc" id="L213">		String email= sc.nextLine();</span>
+
+<span class="fc" id="L215">		Contact contact= new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);</span>
+
+<span class="fc" id="L217">		return contact;</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

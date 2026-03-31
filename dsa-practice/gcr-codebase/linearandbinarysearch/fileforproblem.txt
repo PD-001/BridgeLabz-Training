@@ -1,0 +1,3 @@
+hello
+this is for file reader problem 1
+thats it.

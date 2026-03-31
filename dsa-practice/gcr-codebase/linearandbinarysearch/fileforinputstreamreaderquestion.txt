@@ -1,0 +1,4 @@
+Hello World
+Java InputStreamReader Example
+UTF-8 encoding test ✓
+こんにちは

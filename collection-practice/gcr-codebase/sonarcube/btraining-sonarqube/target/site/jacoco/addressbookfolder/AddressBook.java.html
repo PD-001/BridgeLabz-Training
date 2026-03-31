@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AddressBook.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BTraining SonarQube</a> &gt; <a href="index.source.html" class="el_package">addressbookfolder</a> &gt; <span class="el_source">AddressBook.java</span></div><h1>AddressBook.java</h1><pre class="source lang-java linenums">package addressbookfolder;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+public class AddressBook {
+<span class="fc" id="L9">	private List&lt;Contact&gt; contacts= null;</span>
+	
+<span class="fc" id="L11">	public AddressBook(List&lt;Contact&gt; contacts) {</span>
+<span class="fc" id="L12">		setContacts(contacts);</span>
+<span class="fc" id="L13">	}</span>
+
+	public List&lt;Contact&gt; getContacts() {
+<span class="fc" id="L16">		return contacts;</span>
+	}
+
+	public void setContacts(List&lt;Contact&gt; contacts) {
+<span class="fc" id="L20">		this.contacts= new LinkedList&lt;&gt;();</span>
+<span class="fc" id="L21">		this.contacts.addAll(contacts);</span>
+<span class="fc" id="L22">	}</span>
+	
+	public void printContacts() {
+<span class="nc" id="L25">		System.out.println(toString());</span>
+<span class="nc" id="L26">	}</span>
+	
+	public void addContact(Contact contact) {
+<span class="fc bfc" id="L29" title="All 2 branches covered.">		if(duplicateCheck(contact)) {</span>
+<span class="fc" id="L30">			System.out.println(&quot;Contact already exists&quot;);</span>
+<span class="fc" id="L31">			return;</span>
+		}
+<span class="fc" id="L33">		this.contacts.add(contact);</span>
+<span class="fc" id="L34">	}</span>
+
+	public void editByName(String name, Scanner sc, Map&lt;String, List&lt;Contact&gt;&gt; cityMap, Map&lt;String, List&lt;Contact&gt;&gt; stateMap) {
+		int i;
+<span class="nc bnc" id="L38" title="All 2 branches missed.">		if((i=existByName(name))!=-1) {</span>
+<span class="nc" id="L39">			Contact c = contacts.get(i);</span>
+<span class="nc" id="L40">			int n=0;</span>
+			do {
+
+<span class="nc" id="L43">				System.out.println(&quot;What would you like to edit?&quot;</span>
+						+ &quot;\nFirstName(1)&quot;
+						+ &quot;\nLastname(2)&quot;
+						+ &quot;\nAddress(3)&quot;
+						+ &quot;\nCity(4)&quot;
+						+ &quot;\nState(5)&quot;
+						+ &quot;\nZip(6)&quot;
+						+ &quot;\nPhone Number(7)&quot;
+						+ &quot;\nEmail(8)&quot;
+						+ &quot;\nNone(9)&quot;);
+				
+<span class="nc" id="L54">				n=sc.nextInt();</span>
+<span class="nc" id="L55">				sc.nextLine();</span>
+				
+<span class="nc bnc" id="L57" title="All 10 branches missed.">				switch(n) {</span>
+				case 1:
+<span class="nc" id="L59">					System.out.println(&quot;New first Name:&quot;);</span>
+<span class="nc" id="L60">					c.setFirstName(sc.nextLine());</span>
+<span class="nc" id="L61">					break;</span>
+					
+				case 2:
+<span class="nc" id="L64">					System.out.println(&quot;New Last Name:&quot;);</span>
+<span class="nc" id="L65">					c.setLastName(sc.nextLine());</span>
+<span class="nc" id="L66">					break;</span>
+					
+				case 3:
+<span class="nc" id="L69">					System.out.println(&quot;New Address:&quot;);</span>
+<span class="nc" id="L70">					c.setAddress(sc.nextLine());</span>
+<span class="nc" id="L71">					break;</span>
+					
+				case 4:
+<span class="nc" id="L74">					System.out.println(&quot;New City name:&quot;);</span>
+<span class="nc" id="L75">					String oldCity= c.getCity();</span>
+<span class="nc" id="L76">                    String newCity= sc.nextLine();</span>
+                    
+<span class="nc bnc" id="L78" title="All 2 branches missed.">                    if (cityMap.containsKey(oldCity)) {</span>
+<span class="nc" id="L79">                        cityMap.get(oldCity).remove(c);</span>
+                    }
+                    
+<span class="nc" id="L82">                    c.setCity(newCity);</span>
+                    
+<span class="nc" id="L84">                    cityMap.computeIfAbsent(newCity, k -&gt; new LinkedList&lt;&gt;()).add(c);</span>
+<span class="nc" id="L85">					break;</span>
+					
+				case 5:
+<span class="nc" id="L88">					System.out.println(&quot;New State name&quot;);</span>
+<span class="nc" id="L89">					String oldState= c.getState();</span>
+<span class="nc" id="L90">                    String newState= sc.nextLine();</span>
+                    
+<span class="nc bnc" id="L92" title="All 2 branches missed.">                    if (stateMap.containsKey(oldState)) {</span>
+<span class="nc" id="L93">                        stateMap.get(oldState).remove(c);</span>
+                    }
+                    
+<span class="nc" id="L96">                    c.setState(newState);</span>
+                    
+<span class="nc" id="L98">                    stateMap.computeIfAbsent(newState, k -&gt; new LinkedList&lt;&gt;()).add(c);</span>
+<span class="nc" id="L99">					break;</span>
+				
+				case 6:
+<span class="nc" id="L102">					System.out.println(&quot;New Zip:&quot;);</span>
+<span class="nc" id="L103">					c.setZip(sc.nextLine());</span>
+<span class="nc" id="L104">					break;</span>
+					
+				case 7:
+<span class="nc" id="L107">					System.out.println(&quot;New phone Number:&quot;);</span>
+<span class="nc" id="L108">					c.setPhoneNumber(sc.nextLine());</span>
+<span class="nc" id="L109">					break;</span>
+					
+				case 8:
+<span class="nc" id="L112">					System.out.println(&quot;New Email:&quot;);</span>
+<span class="nc" id="L113">					c.setEmail(sc.nextLine());</span>
+<span class="nc" id="L114">					break;</span>
+					
+				case 9:
+<span class="nc" id="L117">					System.out.println(&quot;Editing completed&quot;);</span>
+<span class="nc" id="L118">					break;</span>
+				
+				default:
+<span class="nc" id="L121">					System.out.println(&quot;Invalid choice. Please try again.&quot;);</span>
+					break;
+				}
+			}
+<span class="nc bnc" id="L125" title="All 2 branches missed.">			while(n!=9);</span>
+			
+<span class="nc" id="L127">		}</span>
+		else {
+<span class="nc" id="L129">			System.out.println(&quot;No such contact&quot;);</span>
+		}
+<span class="nc" id="L131">	}</span>
+	
+	private int existByName(String name) {
+<span class="fc" id="L134">		String[] fullname= name.split(&quot; &quot;);</span>
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">		if(fullname.length&lt;2) return -1;</span>
+		
+<span class="fc" id="L137">		Contact temp= new Contact();</span>
+<span class="fc" id="L138">		temp.setFirstName(fullname[0]);</span>
+<span class="fc" id="L139">		temp.setLastName(fullname[1]);</span>
+		
+<span class="pc bfc" id="L141" title="All 2 branches covered.">		for(int i=0;i&lt;this.contacts.size();i++) {</span>
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">			if(contacts.get(i).equals(temp)) {</span>
+<span class="fc" id="L143">				return i;</span>
+			}
+		}
+		
+<span class="fc" id="L147">		return -1;</span>
+	}
+	
+	public Contact deleteByName(String name) {
+		int i;
+<span class="fc bfc" id="L152" title="All 2 branches covered.">		if((i=existByName(name))!=-1) {</span>
+<span class="fc" id="L153">			Contact c= this.contacts.remove(i);	</span>
+<span class="fc" id="L154">			System.out.println(&quot;Contact deleted&quot;);</span>
+<span class="fc" id="L155">			return c;</span>
+		}else {
+<span class="fc" id="L157">			System.out.println(&quot;No such contact&quot;);</span>
+<span class="fc" id="L158">			return null;</span>
+		}
+	}
+	
+	public void sortAndPrintContacts() {
+<span class="nc" id="L163">	    contacts.stream()</span>
+<span class="nc" id="L164">	            .sorted((c1, c2)-&gt;{</span>
+<span class="nc" id="L165">	                int res=c1.getFirstName().compareToIgnoreCase(c2.getFirstName());</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">	                if (res!=0) return res;</span>
+<span class="nc" id="L167">	                return c1.getLastName().compareToIgnoreCase(c2.getLastName());</span>
+	            })
+<span class="nc" id="L169">	            .forEach(System.out::println);</span>
+<span class="nc" id="L170">	}</span>
+
+	private boolean duplicateCheck(Contact contact) {
+<span class="fc" id="L173">		return contacts.contains(contact);</span>
+	}
+
+	@Override
+	public String toString() {
+<span class="nc" id="L178">		StringBuilder sb= new StringBuilder();</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">		for(int i=0;i&lt;getContacts().size();i++) {</span>
+<span class="nc" id="L180">			sb.append((i+1)).append(&quot;:\n&quot;).append(getContacts().get(i).toString()).append('\n');</span>
+		}
+<span class="nc" id="L182">		return sb.toString();</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
